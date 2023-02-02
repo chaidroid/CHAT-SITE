@@ -7,13 +7,12 @@ import { Server } from "socket.io";
 import { fileURLToPath } from "url";
 import router from "./api/routes.js";
 import sockets from "./socket/sockets.js";
-
-await mongoose.connect(
-  "mongodb+srv://bitfumes123:bitfumes123@cluster0.yk0jpvz.mongodb.net/?retryWrites=true&w=majority"
-);
+import dotenv from "dotenv";
+dotenv.config();
+await mongoose.connect(process.env.DB_URL);
 
 const app = express();
-const PORT = 4000;
+const PORT = process.env.PORT;
 
 const httpServer = http.createServer(app);
 const io = new Server(httpServer, {
